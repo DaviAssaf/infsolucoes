@@ -1,0 +1,73 @@
+@import url('../../styles.css');
+
+h1 {
+    text-align: center;
+    margin: 20px 0 30px 0;
+}
+
+.container-box {
+    width: 400px;
+    margin: 50px auto;
+}
+
+form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+    margin-bottom: 15px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.input-group input[type="password"],
+.input-group input[type="text"] {
+    width: calc(100% - 40px);
+    padding: 10px 10px 10px 35px;
+    margin-bottom: 0;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 1em;        
+    line-height: 1.2em;    
+    letter-spacing: normal;
+    height: 40px;
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+}
+
+
+.input-group i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+}
+
+.input-group i.fa-lock {
+    left: 10px;
+}
+
+.input-group i#togglePassword {
+    right: 10px;
+    cursor: pointer;
+}
+
+.input-group input {
+    width: calc(100% - 40px);
+    padding: 10px 10px 10px 35px;
+    margin-bottom: 0;
+    box-sizing: border-box;  /* Adicione isto para garantir o cálculo correto da largura */
+}
+
+button[type="submit"] {
+    margin-top: 10px;
+    width: 100%;
+}

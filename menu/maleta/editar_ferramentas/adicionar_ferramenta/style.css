@@ -1,0 +1,65 @@
+@import url('../../../styles.css');
+
+body {
+    text-align: center;
+}
+
+.formulario-box {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    width: 90%;
+    max-width: 500px;
+    margin: 50px auto;
+    flex-direction: column;
+}
+
+.formulario-box label {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.formulario-box input[type="number"],
+.formulario-box select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.formulario-box button[type="submit"] {
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+    padding: 10px 0;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.formulario-box button[type="submit"]:hover {
+    background-color: var(--accent-hover-color);
+}
+
+.mensagem.erro {
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.mensagem.sucesso {
+    background-color: #2ecc71;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-align: center;
+}

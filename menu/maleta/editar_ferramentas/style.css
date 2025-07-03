@@ -1,0 +1,32 @@
+@import url('../../styles.css');
+
+td.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.mensagem.erro {
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 20px auto;
+    width: 90%;
+    text-align: center;
+}
+
+table.empty {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+table.empty td {
+    border: 1px solid var(--primary-color);
+    padding: 10px;
+    text-align: center;
+}

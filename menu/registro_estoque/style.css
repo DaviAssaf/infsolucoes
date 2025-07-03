@@ -1,0 +1,28 @@
+@import url(../styles.css);
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header .logo {
+    height: 100px;
+}
+
+.filter-selection {
+    align-items: center;
+    width: 100%;
+}
+
+#period-select {
+    width: 20%;
+}
+
+#type-select {
+    width: 20%;
+}
+
+table {
+    margin-top: 25px;
+}

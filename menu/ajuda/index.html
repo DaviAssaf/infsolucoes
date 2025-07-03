@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../../images/icon.ico">
+    <link rel="stylesheet" href="style.css">
+    <title>Manual de Uso</title>
+</head>
+
+<body>
+    <div class="back-button">
+        <a href=".." class="back-btn">Voltar</a>
+    </div>
+    <div class="box-container">
+        <h1>Manual de Uso</h1>
+        <p>Em Ajustes, Aguarde novas atualizações!</p>
+        <!-- <p>Bem-vindo ao sistema de gestão de estoque da Infinity Soluções. Neste breve manual, você encontrará as informações necessárias para entender cada uma das funcionalidades e os requisitos do sistema.</p>
+        <p>Este manual é destinado aos usuários do sistema de gestão de estoque da Infinity Soluções, incluindo gestores e operadores, com o objetivo de orientar sobre o uso correto das funcionalidades disponíveis.</p>
+        
+        <h2>Funcionalidades do Sistema</h2>
+        <h2>Índice</h2>
+        <ul>
+            <li><a href="#area-cadastros">1. Área de Cadastros</a></li>
+            <li><a href="#gestao-estoque">2. Gestão de Estoque</a></li>
+            <li><a href="#registro-saida-retorno">3. Registro de Saída e Retorno</a></li>
+        </ul>
+
+        <p>__________________________________________________________________________________________</p>
+        
+        <h3 id="area-cadastros">Área de Cadastros</h3>
+        <div class="topico">
+            <h4>Funcionários</h4>
+            <p>O sistema permite o cadastro de funcionários, possibilitando o preenchimento rápido em campos de outros tópicos onde o nome dos funcionários é necessário.</p>
+            <ul>
+                <li>Os campos de cadastro são: Nome, Telefone, E-mail (opcional) e Senha (opcional).</li>
+                <li>Por questão de integridade e confiabilidade dos dados, os campos de E-mail e Senha só devem ser preenchidos se o funcionário for um usuário do sistema.</li>
+            </ul>
+        </div>
+
+        <div class="topico">
+            <h4>Veículos</h4>
+            <p>Os veículos são cadastrados com as informações necessárias para sua gestão, além de existirem campos que só podem ser preenchidos com um registro de veículo.</p>
+            <ul>
+                <li>Os campos de cadastro do veículo são: Nome do Veículo, Placa, KM (a quilometragem atual) e Marca.</li>
+                <li>Na tabela dos veículos, é possível visualizar informações importantes relacionadas ao estado de cada elemento do veículo e imagens do mesmo (importante verificar antes de um serviço).</li>
+            </ul>
+        </div>
+
+        <div class="topico">
+            <h4>Clientes</h4>
+            <p>Para todas as informações relacionadas ao serviço, é necessário o cadastro do cliente antes de qualquer atividade.</p>
+            <ul>
+                <li>Os campos de cadastro do cliente são: Nome, CNPJ, Contato (opcional), Telefone (opcional), E-mail (opcional) e Endereço(que contém vários campos de preenchimento).</li>
+            </ul>
+        </div>
+
+        <p>__________________________________________________________________________________________</p>
+
+        <h3 id="gestao-estoque">Gestão de Estoque</h3>
+        <div class="topico">
+            <h4>Ferramentas</h4>
+            <p>Para adicionar ferramentas ao serviço, é necessário registrá-las primeiro. Dessa forma, você terá as informações necessárias para acompanhar a situação de cada ferramenta.</p>
+            <ul>
+                <li>Os campos de cadastro da ferramenta são: Nome, Valor, Quantidade e Tipo (ferramentas manuais ou elétricas).</li>
+                <li>Na tabela de ferramentas, é possível ver informações como a quantidade total em estoque e a quantidade atual (em caso de dois serviços simultâneos).</li>
+                <li>Na coluna "Situação", é possível verificar quais ferramentas estão disponíveis, em uso ou dentro de maletas. Ao lado, existe um campo com o número da OS, que identifica em qual Ordem de Serviço a última cópia da ferramenta foi utilizada.</li>
+            </ul>
+        </div>
+
+        <div class="topico">
+            <h4>Matérias-Primas</h4>
+            <p>As matérias-primas seguem a mesma lógica das ferramentas descritas acima.</p>
+            <ul>
+                <li>Os campos de cadastro das matérias-primas são: Nome, Custo, Medida, Descrição, Tamanhos, Estoque e Estoque Mínimo.</li>
+                <li>O campo Estoque Mínimo existe para definir quando o estoque está baixo e precisa ser reabastecido.</li>
+                <li>Em relação à situação das matérias-primas, elas não se atualizam automaticamente, assim como as ferramentas, mas isso está sujeito a futuras atualizações.</li>
+                <li>É necessária a atualização manual dos estoques de matérias-primas, assim como das ferramentas.</li>
+            </ul>
+        </div>
+
+        <div class="topico">
+            <h4>Maletas</h4>
+            <p>As maletas são cadastradas para que seja possível saber quais ferramentas estão dentro de cada uma delas. Essas informações também podem ser vistas na tabela de ferramentas.</p>
+            <ul>
+                <li>Os campos de cadastro das maletas são: Nome e Valor.</li>
+                <li>Na tabela de maletas, é possível ver quais maletas existem e quais estão disponíveis.</li>
+                <li>Ao clicar em "Visualizar", é possível ver quais ferramentas estão dentro da maleta, bem como retirá-las ou adicioná-las (é necessário que estejam registradas na tabela de ferramentas para estarem disponíveis).</li>
+            </ul>
+        </div>
+
+        <p>__________________________________________________________________________________________</p>
+
+        <h3 id="registro-saida-retorno">Registro de Saída e Retorno</h3>
+        <div class="topico">
+            <h4>Ordens de Serviço</h4>
+            <p>A Ordem de Serviço requer um cadastro para identificar qual serviço será executado.</p>
+            <ul>
+                <li>Os campos de cadastro da Ordem de Serviço são: Número da OS, Responsável, Cliente (necessário registro de cliente), Veículo (necessário registro de veículo), Contato (preenchido ao selecionar cliente), Telefone (preenchido ao selecionar cliente), Trabalho e Itens (objetivos) da OS.</li>
+                <li>O campo "Responsável" exige um registro de funcionário para ser preenchido.</li>
+                <li>O campo "Cliente" exige um registro de cliente para ser preenchido.</li>
+                <li>Ao selecionar o cliente, os campos "Contato" e "Telefone" são preenchidos automaticamente.</li>
+            </ul>
+        </div>
+
+        <div class="topico">
+            <h4>Checklists</h4>
+            <p>Esta é a página que gerencia todos os checklists, onde você pode criar, editar e imprimir checklists, além de administrar as ocorrências de cada um.</p>
+            <ol>
+                <h5>Saída</h5>
+                <p>Para criar um checklist, é necessário clicar em "Registrar Nova Saída" e preencher os campos obrigatórios.</p>
+                <li>Selecione um número de OS registrado, e o endereço será preenchido automaticamente.</li>
+                <li>Selecione um responsável pelo checklist entre os funcionários registrados.</li>
+                <li>Selecione um veículo, e o KM será preenchido automaticamente.</li>
+                <li>Selecione um motorista, que também deve estar entre os funcionários registrados.</li>
+                <li>Preencha o campo "Acompanhantes", se necessário.</li>
+                <li>Adicione as ferramentas/matérias-primas disponíveis na caixa de ferramentas.</li>
+                <li>As maletas adicionam automaticamente suas ferramentas junto com elas mesmas.</li>
+                <li>Selecione a data e a hora da saída clicando no símbolo de calendário, salve o checklist e aguarde o retorno da equipe.</li>
+                <p><b>Observação: O programa presume que o momento da criação do checklist é o momento da saída, então lembre-se de conferir.</b></p>
+            </ol>
+
+            <ol>
+                <h5>Edição de Checklist</h5>
+                <p>Para editar um checklist, clique em "Editar" nas ações.</p>
+                <li>Nessa aba, estão todas as informações relevantes do checklist.</li>
+                <li>Quando a equipe retornar, anote o horário de retorno, clique no símbolo de calendário e selecione a data e a hora de retorno (você pode clicar em "Hoje" para preenchimento automático).</li>
+                <li>Verifique o KM de retorno do veículo e digite-o para atualizar os dados do veículo.</li>
+                <li>Por fim, confirme se todas as ferramentas retornaram, marcando as caixas de verificação (o retorno será automaticamente igual à saída ao marcar) e deixe as observações necessárias como lembrete.</li>
+                <p><b>Observação: Caso deixe uma caixa desmarcada, será criada uma ocorrência.</b></p>
+            </ol>
+
+            <h5>Ocorrências</h5>
+            <p>Esta é a página que gerencia todas as ocorrências, onde você pode administrar os problemas dos serviços e resolvê-los.</p>
+            <ul>
+                <li>Você pode editar as informações para acompanhar se tudo já foi resolvido.</li>
+            </ul>
+        </div>
+
+        <p>__________________________________________________________________________________________</p>
+
+        <h3><b>O sistema ainda não está completo e está sujeito a atualizações. Relate qualquer bug ou problema encontrado.</b></h3>
+        <h4>Contatos:</h4>
+        <p>
+            Telefone: (91) 98314-8688<br>
+            E-mail: daviassafmp1@gmail.com
+        </p> -->
+    </div>
+</body>
+
+</html>

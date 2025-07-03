@@ -1,0 +1,17 @@
+@import url('../../styles.css');
+
+.container-box {
+    max-width: 600px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section h2 {
+    color: var(--primary-color);
+}

@@ -1,0 +1,119 @@
+@import url('../styles.css');
+
+.page-title {
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+    text-align: center;
+}
+
+.add-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    padding: 8px 18px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+.add-button:hover,
+.add-button:focus {
+    background-color: var(--accent-hover-color);
+    outline: none;
+}
+
+/* Formulário de pesquisa */
+form {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+input[type="text"] {
+    padding: 8px;
+    width: 250px;
+}
+
+/* Tabela customizada */
+.table-container {
+    border-radius: var(--container-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-container th,
+.table-container td {
+    padding: 10px 8px;
+    font-size: 0.97em;
+    text-align: left;
+}
+
+.table-header a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+.table-header a:hover,
+.table-header a:focus {
+    text-decoration: underline;
+    outline: none;
+}
+
+/* Ações */
+.edit-link {
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    padding: 5px 12px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    margin-right: 5px;
+    transition: background-color 0.3s;
+    font-size: 0.95em;
+}
+.edit-link:hover,
+.edit-link:focus {
+    background-color: var(--accent-hover-color);
+    outline: none;
+}
+
+.delete-button {
+    background-color: red;
+    color: black;
+    border: none;
+    padding: 5px 12px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.95em;
+    transition: background-color 0.3s;
+}
+.delete-button:hover,
+.delete-button:focus {
+    background-color: darkred;
+    outline: none;
+}
+
+/* Aviso de estoque baixo */
+.estoque-baixo {
+    color: #DC3545 !important;
+    font-weight: bold;
+}
+
+/* Responsividade simples */
+@media (max-width: 800px) {
+    .table-container, .table-container th, .table-container td {
+        font-size: 0.93em;
+    }
+    form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+    }
+    input[type="text"] {
+        width: 100%;
+    }
+}

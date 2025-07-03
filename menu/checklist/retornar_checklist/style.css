@@ -1,0 +1,31 @@
+@import url('../../styles.css');
+
+/* Específicos da checklist */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.header .logo {
+    height: auto;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section h3 {
+    color: var(--primary-color);
+    font-size: 1.2em;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.mini-table-content {
+    display: none;
+}

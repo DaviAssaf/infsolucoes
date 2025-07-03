@@ -1,0 +1,51 @@
+@import url('../styles.css');
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.cadastro-button {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.cadastro-button button {
+    min-width: 150px;
+}
+
+/* Estilos dos botões de ação */
+.edit-button button {
+    background-color: #FFC107; /* Amarelo */
+    color: white;
+    margin-right: 5px;
+}
+
+.edit-button button:hover {
+    background-color: #FFA000;
+}
+
+.delete-button button {
+    background-color: #F44336; /* Vermelho */
+    color: white;
+}
+
+.delete-button button:hover {
+    background-color: #D32F2F;
+}
+
+/* Ajustes para tabela */
+.table-style {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto 30px auto;
+    border-collapse: collapse;
+}
+
+.table-style td:last-child {
+    text-align: center;
+}
+
+.actions {
+    display: flex;
+}

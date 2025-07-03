@@ -1,0 +1,25 @@
+@import url('../styles.css');
+
+.box-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    color: var(--primary-color);
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.topico li {
+    margin-bottom: 10px;
+}

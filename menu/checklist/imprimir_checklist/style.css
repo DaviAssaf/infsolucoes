@@ -1,0 +1,136 @@
+@import url(../../styles.css);
+
+.hidden {
+    display: none;
+}
+
+.container-print {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 20px;
+    border-radius: var(--container-radius);
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    /* display: block !important; */
+}
+
+/* Checklist - Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: auto;
+    flex-wrap: wrap;
+}
+
+.header .logo {
+    width: auto;
+    height: 1rem;
+}
+
+.header .title {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Checklist - Section */
+.section {
+    margin-bottom: 0;
+    border-bottom: solid 1px;
+}
+
+.section h3 {
+    color: var(--primary-color);
+    font-size: 1.0rem;
+}
+
+/* Checklist - Info */
+.info,
+.info-colab,
+.vehicle-details {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 0;
+}
+
+.info {
+    margin-top: 25px;
+}
+
+/* Table */
+.table-style-print,
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    text-align: center;
+}
+
+
+
+.table-style-print th,
+table th {
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    font-size: 14.4px;
+    border: 1px solid var(--primary-color);
+    padding: 5px;
+    text-align: left;
+    white-space: nowrap;
+    /* Impede quebra de linha */
+}
+
+.table-style-print td {
+    overflow-wrap: break-word;
+    font-size: 0.9em;
+    height: 29px;
+    max-height: 29px;
+}
+
+table td:not(.maleta, .mini-table),
+.table-style-print td:not(.maleta,
+    .mini-table) {
+    border: 1px solid var(--primary-color);
+}
+
+.table-style-print tr:nth-child(even),
+table tr:nth-child(even) {
+    background-color: var(--neutral-color);
+}
+
+.initial {
+    border-left: 1px solid var(--primary-color);
+}
+
+.final {
+    border-right: 1px solid var(--primary-color);
+}
+
+/* Mini Table */
+.mini-table-content {
+    display: none;
+}
+
+.mini-table-content tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+}
+
+.sign {
+    display: flex;
+    text-align: center;
+}
+
+.sign-saida,
+.sign-retorno {
+    width: 50%;
+    margin: 20px;
+    text-align: center;
+}
+
+.line {
+    border-right: 1px solid;
+}
