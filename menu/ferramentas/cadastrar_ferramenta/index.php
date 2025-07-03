@@ -11,6 +11,7 @@ require_once '../../verificacao_sessao.php';
     <title>Cadastro de Ferramentas</title>
     <link rel="icon" type="image/x-icon" href="../../../images/icon.ico">
     <link rel="stylesheet" href="style.css">
+    <script type="module" src="../../mask_cost.js"></script>
 </head>
 
 <body>
@@ -19,10 +20,10 @@ require_once '../../verificacao_sessao.php';
     </div>
     <form action="cadastrar_ferramentas.php" method="POST">
         <label for="nome">Nome:</label>
-        <input type="text" name="nome" required>
+        <input type="text" name="nome" placeholder="Nome da Ferramenta" required>
 
         <label for="valor">Valor:</label>
-        <input type="number" name="valor">
+        <input type="text" value="0,00" name="valor" id="inputCurrency">
 
         <label for="quantidade">Quantidade:</label>
         <input type="number" name="qtd" required>

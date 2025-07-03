@@ -127,7 +127,7 @@ while ($row = $result_ferramentas_maleta->fetch_assoc()) {
     <h1>Editar Checklist #<?php echo htmlspecialchars($id_checklist); ?></h1>
     <div class="container">
         <div class="header">
-            <img src="/images/logo_infinity_menu.jpg" alt="Logo" class="logo">
+            <img src="../../../images/logo_infinity_menu.jpg" alt="Logo" class="logo">
             <h1 style="flex-grow: 1; text-align: center; margin: 0;"><strong><?php echo htmlspecialchars($id_checklist); ?></strong></h1>
             <h1 style="margin: 0;">Check-list</h1>
         </div>

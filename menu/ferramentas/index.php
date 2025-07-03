@@ -8,7 +8,7 @@ $organizar_direcao = isset($_GET['sort_direction']) ? $_GET['sort_direction'] : 
 
 $nova_organizar_direcao = ($organizar_direcao === 'ASC') ? 'DESC' : 'ASC';
 
-$validar_colunas = ['nome', 'valor', 'quantidade_total', 'quantidade_atual', 'tipo', 'situacao', 'nome_num'];
+$validar_colunas = ['id_ferramenta', 'nome', 'valor', 'quantidade_total', 'quantidade_atual', 'tipo', 'situacao', 'nome_num'];
 if (!in_array($organizar_coluna, $validar_colunas)) {
     $organizar_coluna = 'nome';
 }
@@ -38,6 +38,7 @@ $conn->close();
     <title>Ferramentas</title>
     <link rel="icon" type="image/x-icon" href="../../images/icon.ico">
     <link rel="stylesheet" href="style.css">
+    <script src="../confirmDelete.js"></script>
 </head>
 
 <body>
@@ -53,43 +54,48 @@ $conn->close();
         <button type='submit'>Pesquisar</button>
     </form>
 
-    <a href='cadastrar_ferramenta'><button>Cadastrar Nova Ferramenta</button></a>
+    <button><a href='cadastrar_ferramenta'>Cadastrar Nova Ferramenta</a></button>
 
     <table border='1' class="table-container">
         <thead>
             <tr>
                 <th class="table-header">
-                    <a href='?sort_column=nome&amp;sort_direction=<?php echo $nova_organizar_direcao; ?>&amp;search=<?php echo urlencode($search); ?>'>
+                    <a href='?sort_column=id_ferramenta&sort_direction=<?php echo $nova_organizar_direcao; ?>&search=<?php echo urlencode($search); ?>'>
+                        # <?php echo ($organizar_coluna === 'id_ferramenta' ? ($organizar_direcao === 'ASC' ? '↑' : '↓') : ''); ?>
+                    </a>
+                </th>
+                <th class="table-header">
+                    <a href='?sort_column=nome&sort_direction=<?php echo $nova_organizar_direcao; ?>&search=<?php echo urlencode($search); ?>'>
                         Nome <?php echo ($organizar_coluna === 'nome' ? ($organizar_direcao === 'ASC' ? '↑' : '↓') : ''); ?>
                     </a>
                 </th>
                 <th class="table-header">
-                    <a href='../ferramentas?sort_column=valor&amp;sort_direction=<?php echo $nova_organizar_direcao; ?>&amp;search=<?php echo urlencode($search); ?>'>
+                    <a href='?sort_column=valor&sort_direction=<?php echo $nova_organizar_direcao; ?>&search=<?php echo urlencode($search); ?>'>
                         Valor <?php echo ($organizar_coluna === 'valor' ? ($organizar_direcao === 'ASC' ? '↑' : '↓') : ''); ?>
                     </a>
                 </th>
                 <th class="table-header">
-                    <a href='../ferramentas?sort_column=quantidade_total&amp;sort_direction=<?php echo $nova_organizar_direcao; ?>&amp;search=<?php echo urlencode($search); ?>'>
+                    <a href='?sort_column=quantidade_total&sort_direction=<?php echo $nova_organizar_direcao; ?>&search=<?php echo urlencode($search); ?>'>
                         Quantidade Total <?php echo ($organizar_coluna === 'quantidade_total' ? ($organizar_direcao === 'ASC' ? '↑' : '↓') : ''); ?>
                     </a>
                 </th>
                 <th class="table-header">
-                    <a href='../ferramentas?sort_column=quantidade_atual&amp;sort_direction=<?php echo $nova_organizar_direcao; ?>&amp;search=<?php echo urlencode($search); ?>'>
+                    <a href='?sort_column=quantidade_atual&sort_direction=<?php echo $nova_organizar_direcao; ?>&search=<?php echo urlencode($search); ?>'>
                         Quantidade Atual <?php echo ($organizar_coluna === 'quantidade_atual' ? ($organizar_direcao === 'ASC' ? '↑' : '↓') : ''); ?>
                     </a>
                 </th>
                 <th class="table-header">
-                    <a href='../ferramentas?sort_column=tipo&amp;sort_direction=<?php echo $nova_organizar_direcao; ?>&amp;search=<?php echo urlencode($search); ?>'>
+                    <a href='?sort_column=tipo&sort_direction=<?php echo $nova_organizar_direcao; ?>&search=<?php echo urlencode($search); ?>'>
                         Tipo <?php echo ($organizar_coluna === 'tipo' ? ($organizar_direcao === 'ASC' ? '↑' : '↓') : ''); ?>
                     </a>
                 </th>
                 <th class="table-header">
-                    <a href='../ferramentas?sort_column=situacao&amp;sort_direction=<?php echo $nova_organizar_direcao; ?>&amp;search=<?php echo urlencode($search); ?>'>
+                    <a href='?sort_column=situacao&sort_direction=<?php echo $nova_organizar_direcao; ?>&search=<?php echo urlencode($search); ?>'>
                         Situação <?php echo ($organizar_coluna === 'situacao' ? ($organizar_direcao === 'ASC' ? '↑' : '↓') : ''); ?>
                     </a>
                 </th>
                 <th class="table-header">
-                    <a href='../ferramentas?sort_column=nome_num&amp;sort_direction=<?php echo $nova_organizar_direcao; ?>&amp;search=<?php echo urlencode($search); ?>'>
+                    <a href='?sort_column=nome_num&sort_direction=<?php echo $nova_organizar_direcao; ?>&search=<?php echo urlencode($search); ?>'>
                         Serviço <?php echo ($organizar_coluna === 'nome_num' ? ($organizar_direcao === 'ASC' ? '↑' : '↓') : ''); ?>
                     </a>
                 </th>
@@ -100,6 +106,7 @@ $conn->close();
             <?php if ($result->num_rows > 0): ?>
                 <?php while ($row = $result->fetch_assoc()): $situacao = !is_numeric($row['situacao']) ? $row['situacao'] : $row['nome_maleta']; ?>
                     <tr>
+                        <td><?php echo htmlspecialchars($row['id_ferramenta']); ?></td>
                         <td><?php echo htmlspecialchars($row['nome']); ?></td>
                         <td><?php echo "R$ " . number_format($row['valor'], 2, ',', '.'); ?></td>
                         <td><?php echo htmlspecialchars($row['quantidade_total']); ?></td>
@@ -109,12 +116,12 @@ $conn->close();
                         <td><?php echo htmlspecialchars((string)($row['nome_num'] ?? '')); ?></td>
                         <td class="actions">
                             <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 1): ?>
-                                <form action='deletar_ferramenta.php' method='POST' style='display:inline;' onsubmit="return confirm('Tem certeza que deseja excluir esta ferramenta?');">
+                                <form style='display:inline;' action="deletar_ferramenta.php" method="POST">
                                     <input type='hidden' name='id_ferramenta' value='<?php echo htmlspecialchars($row['id_ferramenta']); ?>'>
-                                    <button type='submit' class="delete-button">Excluir</button>
+                                    <button type='button' class="delete-button" onclick="confirmDelete(event)">Excluir</button>
                                 </form>
                             <?php endif; ?>
-                            <button class="edit-button"><a href=' editar_ferramenta?id_ferramenta=<?php echo urlencode($row['id_ferramenta']); ?>'>Editar</a></button>
+                            <button class="edit-button"><a href='editar_ferramenta?id_ferramenta=<?php echo urlencode($row['id_ferramenta']); ?>'>Editar</a></button>
                         </td>
                     </tr>
                 <?php endwhile; ?>
@@ -125,6 +132,10 @@ $conn->close();
             <?php endif; ?>
         </tbody>
     </table>
+
+    <?php if (isset($_GET['mensagem'])): ?>
+        <div class='mensagem'><?php echo htmlspecialchars($_GET['mensagem']); ?></div>
+    <?php endif; ?>
 
 </body>
 

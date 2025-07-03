@@ -33,6 +33,7 @@ if (isset($_GET['id_ferramenta'])) {
   <title>Editar Ferramenta</title>
   <link rel="icon" type="image/x-icon" href="../../../images/icon.ico">
   <link rel="stylesheet" href="style.css">
+  <script type="module" src="../../mask_cost.js"></script>
 </head>
 
 <body>
@@ -49,7 +50,7 @@ if (isset($_GET['id_ferramenta'])) {
     <input type="text" name="nome" id="nome" value="<?php echo htmlspecialchars($row['nome']); ?>" required><br><br>
 
     <label for="valor">Valor:</label>
-    <input type="number" name="valor" id="valor" value="<?php echo htmlspecialchars($row['valor']); ?>" step="0.01" required><br><br>
+    <input type="text" name="valor" id="inputCurrency" value="<?php echo htmlspecialchars(number_format($row['valor'], 2, ',', '')); ?>" step="0.01" required><br><br>
 
     <label for="quantidade_total">Quantidade Total:</label>
     <input type="number" name="quantidade_total" id="quantidade_total" value="<?php echo htmlspecialchars($row['quantidade_total']); ?>" required><br><br>
@@ -63,14 +64,16 @@ if (isset($_GET['id_ferramenta'])) {
       <option value="Ferramentas elétricas" <?php if ($row['tipo'] == 'Ferramentas elétricas') echo 'selected'; ?>>Ferramentas elétricas</option>
     </select><br><br>
 
+    <?php if ($row['situacao'] == 'Disponível' or $row['situacao'] == 'Em uso' or $row['situacao'] == null): ?>
     <label for="situacao">Situação:</label>
     <select name="situacao" id="situacao">
       <option value="Disponível" <?php if ($row['situacao'] == 'Disponível') echo 'selected'; ?>>Disponível</option>
       <option value="Em uso" <?php if ($row['situacao'] == 'Em uso') echo 'selected'; ?>>Em uso</option>
     </select>
+    <?php endif; ?>
 
     <label for="os">Checklist</label>
-    <input type="text" name="num_ordem_servico" id="os" value="<?php echo $row['nome_num']; ?>"><br><br>
+    <input type="text" name="nome_num" id="os" value="<?php echo $row['nome_num']; ?>"><br><br>
 
     <button type="submit">Salvar Alterações</button>
   </form>

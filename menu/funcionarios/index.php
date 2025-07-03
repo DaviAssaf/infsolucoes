@@ -20,6 +20,7 @@ if (!$result) {
     <title>Funcionários</title>
     <link rel="icon" type="image/x-icon" href="../../images/icon.ico">
     <link rel="stylesheet" href="style.css">
+    <script src="../confirmDelete.js"></script>
 </head>
 
 <body>
@@ -56,9 +57,10 @@ if (!$result) {
                             </a>
                         </div>
                         <div>
-                            <a href="excluir.php?id_funcionario=<?php echo $row['id_funcionario']; ?>">
-                                <button class="delete-button">Excluir</button>
-                            </a>
+                            <form style='display:inline;' action="excluir.php" method="POST">
+                                    <input type='hidden' name='id_funcionario' value='<?php echo htmlspecialchars($row['id_funcionario']); ?>'>
+                                    <button type='button' class="delete-button" onclick="confirmDelete(event)">Excluir</button>
+                            </form>
                         </div>
                     </td>
                 </tr>

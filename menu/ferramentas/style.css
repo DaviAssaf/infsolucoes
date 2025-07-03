@@ -14,21 +14,26 @@ h2 {
 }
 
 a {
-    text-decoration: none;
+    width: auto;
+    color: var(--secondary-color)
 }
 
-a button {
+a, button {
+    text-decoration: none;
+    text-align: center;
+}
+
+button{
     background-color: var(--accent-color);
     color: var(--secondary-color);
     border: none;
     padding: 15px 30px;
     border-radius: 5px;
     cursor: pointer;
-    display: block;
     margin: 20px auto;
 }
 
-a button:hover {
+button:hover {
     background-color: var(--accent-hover-color);
 }
 

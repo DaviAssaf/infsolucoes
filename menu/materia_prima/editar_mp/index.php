@@ -38,6 +38,7 @@ if (isset($_GET['id_mp'])) {
     <title>Editar Matéria-Prima</title>
     <link rel="icon" type="image/x-icon" href="../../../images/icon.ico">
     <link rel="stylesheet" href="style.css">
+    <script type="module" src="../../mask_cost.js"></script>
 </head>
 
 <body>
@@ -57,7 +58,7 @@ if (isset($_GET['id_mp'])) {
             <label for="custo">Custo:</label>
             <div class="input-container">
                 <span class="currency-symbol">R$</span>
-                <input type="number" id="custo" name="custo" placeholder="0.00" value="<?php echo isset($row['custo']) ? number_format(floatval($row['custo']), 2, '.', '') : '0.00'; ?>" step="0.01" min="0.000" required>
+                <input type="text" id="inputCurrency" name="custo" placeholder="0.00" value="<?php echo isset($row['custo']) ? number_format(floatval($row['custo']), 2, '.', '') : '0.00'; ?>" step="0.01" min="0.000" required>
             </div>
 
             <label for="quantidade">Quantidade:</label>

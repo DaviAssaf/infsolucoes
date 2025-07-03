@@ -8,7 +8,7 @@ $organizar_direcao = isset($_GET['sort_direction']) ? $_GET['sort_direction'] : 
 $nova_organizar_direcao = ($organizar_direcao === 'ASC') ? 'DESC' : 'ASC';
 
 // Validar colunas para ordenação
-$validar_colunas = ['nome', 'custo', 'descricao', 'quantidade', 'medida', 'quantidade_min'];
+$validar_colunas = ['id_mp', 'nome', 'custo', 'descricao', 'quantidade', 'medida', 'quantidade_min'];
 if (!in_array($organizar_coluna, $validar_colunas)) {
     $organizar_coluna = 'nome';
 }
@@ -47,11 +47,7 @@ function mostrarAviso($estoque)
     <title>Matérias-Primas</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="../../images/icon.ico">
-    <script>
-        function confirmDelete() {
-            return confirm('Tem certeza que deseja excluir esta matéria-prima?');
-        }
-    </script>
+    <script src="../confirmDelete.js"></script>
 </head>
 
 <body>
@@ -115,9 +111,9 @@ function mostrarAviso($estoque)
                         <td>
                             <a href='editar_mp?id_mp=<?php echo $row['id_mp']; ?>' class='edit-link'>Editar</a>
                             <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 1): ?>
-                                <form action='deletar_mp.php' method='POST' style='display:inline;' onsubmit='return confirmDelete()'>
+                                <form action='deletar_mp.php' method='POST' style='display:inline;'>
                                     <input type='hidden' name='id_mp' value='<?php echo $row['id_mp']; ?>'>
-                                    <button type='submit' class='delete-button'>Excluir</button>
+                                    <button type='submit' class='delete-button' onclick="confirmDelete(event)">Excluir</button>
                                 </form>
                             <?php endif; ?>
                         </td>

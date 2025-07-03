@@ -6,12 +6,3 @@ td.actions {
     align-items: center;
     gap: 10px;
 }
-
-.excluir button {
-    background-color: red;
-    color: white;
-}
-
-.excluir button:hover {
-    background-color: darkred;
-}

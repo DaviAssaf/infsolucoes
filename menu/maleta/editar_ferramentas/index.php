@@ -12,78 +12,6 @@ if (isset($_GET['id_maleta'])) {
 header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Pragma: no-cache");
 header("Expires: 0");
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['retirar_ferramenta'])) {
-    $id_ferramenta = $_POST['id_ferramenta'];
-    $quantidade_retirada = $_POST['quantidade_retirada'];
-
-    if ($quantidade_retirada > 0) {
-        $query_quantidade = "SELECT quantidade FROM ferramenta_maleta 
-                           WHERE id_maleta = ? AND id_ferramenta = ?";
-        $stmt_quantidade = $conn->prepare($query_quantidade);
-        $stmt_quantidade->bind_param("ii", $id_maleta, $id_ferramenta);
-        $stmt_quantidade->execute();
-        $result_quantidade = $stmt_quantidade->get_result();
-
-        if ($result_quantidade && $result_quantidade->num_rows > 0) {
-            $row_quantidade = $result_quantidade->fetch_assoc();
-            $quantidade_atual = $row_quantidade['quantidade'];
-
-            if ($quantidade_retirada <= $quantidade_atual) {
-                $query_atualizar = "UPDATE ferramenta_maleta SET quantidade = quantidade - ? 
-                                   WHERE id_maleta = ? AND id_ferramenta = ?";
-                $stmt_atualizar = $conn->prepare($query_atualizar);
-                $stmt_atualizar->bind_param("iii", $quantidade_retirada, $id_maleta, $id_ferramenta);
-
-                if ($stmt_atualizar->execute()) {
-                    $query_estoque = "UPDATE ferramentas SET quantidade_atual = quantidade_atual + ? 
-                                     WHERE id_ferramenta = ?";
-                    $stmt_estoque = $conn->prepare($query_estoque);
-                    $stmt_estoque->bind_param("ii", $quantidade_retirada, $id_ferramenta);
-                    $stmt_estoque->execute();
-
-                    $query_quantidade_atualizada = "SELECT quantidade FROM ferramenta_maleta 
-                                                   WHERE id_maleta = ? AND id_ferramenta = ?";
-                    $stmt_quantidade_atualizada = $conn->prepare($query_quantidade_atualizada);
-                    $stmt_quantidade_atualizada->bind_param("ii", $id_maleta, $id_ferramenta);
-                    $stmt_quantidade_atualizada->execute();
-                    $result_quantidade_atualizada = $stmt_quantidade_atualizada->get_result();
-
-                    if ($result_quantidade_atualizada && $result_quantidade_atualizada->num_rows > 0) {
-                        $row_quantidade_atualizada = $result_quantidade_atualizada->fetch_assoc();
-                        $quantidade_atualizada = $row_quantidade_atualizada['quantidade'];
-
-                        if ($quantidade_atualizada == 0) {
-                            $query_excluir = "DELETE FROM ferramenta_maleta 
-                                            WHERE id_maleta = ? AND id_ferramenta = ?";
-                            $stmt_excluir = $conn->prepare($query_excluir);
-                            $stmt_excluir->bind_param("ii", $id_maleta, $id_ferramenta);
-                            $stmt_excluir->execute();
-
-                            $stmt_excluir->close();
-                        }
-
-                        $stmt_quantidade_atualizada->close();
-                    }
-
-                    header("Location: #?id_maleta=" . $id_maleta);
-                    exit;
-                } else {
-                    echo "<div class='mensagem erro'>Erro ao retirar ferramenta: " . $stmt_atualizar->error . "</div>";
-                }
-
-                $stmt_atualizar->close();
-                $stmt_estoque->close();
-            } else {
-                echo "<div class='mensagem erro'>Quantidade a retirar é maior que a quantidade disponível.</div>";
-            }
-        } else {
-            echo "<div class='mensagem erro'>Ferramenta não encontrada na maleta.</div>";
-        }
-
-        $stmt_quantidade->close();
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -134,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['retirar_ferramenta']))
                                 <td><?php echo htmlspecialchars($row['nome_ferramenta']); ?></td>
                                 <td><?php echo $row['quantidade']; ?></td>
                                 <td>
-                                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . "?id_maleta=" . $id_maleta; ?>">
+                                    <form method="post" action="remover_ferramenta.php?id_maleta=<?php echo $id_maleta; ?>&id=<?php echo $row['id_ferramenta']; ?>">
                                         <input type="hidden" name="id_ferramenta" value="<?php echo $row['id_ferramenta']; ?>">
                                         <input type="number" name="quantidade_retirada" min="1" max="<?php echo $row['quantidade']; ?>" required>
                                         <button class="delete-button" type="submit" name="retirar_ferramenta">-</button>

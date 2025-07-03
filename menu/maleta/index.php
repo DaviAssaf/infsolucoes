@@ -21,6 +21,7 @@ if (!$result) {
     <link rel="stylesheet" href="style.css">
     <title>Maletas</title>
     <link rel="icon" type="image/x-icon" href="../../images/icon.ico">
+    <script src="../confirmDelete.js"></script>
 </head>
 
 <body>
@@ -53,9 +54,10 @@ if (!$result) {
                                 <button>Visualizar</button>
                             </a>
                             <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 1): ?>
-                                <a class="excluir" href="deletar_maleta.php?id_maleta=<?php echo $row['id_maleta']; ?>" onclick="return confirm('Tem certeza que deseja excluir esta maleta?')">
-                                    <button>Excluir</button>
-                                </a>
+                                    <form action="deletar_maleta.php" method="post">
+                                        <input type="hidden" name="id_maleta" value="<?php echo $row['id_maleta']; ?>">
+                                        <button type="submit" class="delete-button" onclick="confirmDelete(event)">Excluir</button>
+                                    </form>
                             <?php endif; ?>
                         </td>
                     </tr>

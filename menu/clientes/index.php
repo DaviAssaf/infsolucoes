@@ -19,7 +19,7 @@ $result = $conn->query($query);
     <title>Visualizar Clientes</title>
     <link rel="icon" type="image/x-icon" href="../../images/icon.ico">
     <link rel="stylesheet" href="style.css">
-    <script src="../confirmar_delete.js"></script>
+    <script src="../confirmDelete.js"></script>
     <script>
         function mostrarFormularioEdicao(botao) {
             var dados = botao.getAttribute('data-cliente');
@@ -83,10 +83,10 @@ $result = $conn->query($query);
                         <td><?= htmlspecialchars($row['nome_empresa']) ?></td>
                         <td>
                             <div style="display:inline-block; margin-right:10px;">
-                                <form action="deletar_cliente.php" method="POST" onsubmit="return confirmDelete()">
+                                <form action="deletar_cliente.php" method="POST">
                                     <input type="hidden" name="id_cliente" value="<?= htmlspecialchars($row['id_cliente']) ?>" />
                                     <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 1): ?>
-                                        <button type="submit" class="delete-button">Excluir</button>
+                                        <button type="submit" class="delete-button" onclick="confirmDelete(event)">Excluir</button>
                                     <?php endif; ?>
                                 </form>
                             </div>

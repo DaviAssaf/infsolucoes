@@ -46,9 +46,15 @@ try {
     // Gera os detalhes das alterações
     $detalhes = '';
     if ($result_antes) {
+        $valor_antigo_situacao = $result_antes['situacao'] ?? null;
+        $valor_novo_situacao = $situacao;
+
+        if ($valor_novo_situacao !== $valor_antigo_situacao && ($valor_novo_situacao !== null || $valor_antigo_situacao !== null)) {
+            $detalhes .= "Situação: " . ($valor_antigo_situacao ?? 'NULL') . " => " . ($valor_novo_situacao ?? 'NULL') . "; ";
+        }
+
         $campos = [
-            'responsavel' => $responsavel,
-            'situacao' => $situacao
+            'responsavel' => $responsavel
         ];
 
         foreach ($campos as $campo => $novo_valor) {
@@ -83,3 +89,4 @@ try {
 }
 
 $conn->close();
+?>

@@ -2,7 +2,7 @@
 include '../conn.php';
 include '../verificacao_sessao.php';
 
-$query = "SELECT * FROM historico";
+$query = "SELECT * FROM historico ORDER BY data_hora DESC";
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -29,7 +29,6 @@ $result = $stmt->get_result();
     <table class="table-style">
         <thead>
             <tr>
-                <th>#</th>
                 <th>Data/Hora</th>
                 <th>Usuário</th>
                 <th>Seção</th>
@@ -50,7 +49,6 @@ $result = $stmt->get_result();
                     $funcionario = $result_funcionario->fetch_assoc();
                     ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($row['id']); ?></td>
                         <td><?php echo htmlspecialchars($row['data_hora']); ?></td>
                         <td><?php echo htmlspecialchars($funcionario['nome'] ?? ''); ?></td>
                         <td><?php echo htmlspecialchars($row['secao']); ?></td>
