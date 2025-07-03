@@ -19,11 +19,7 @@ if (!$result) {
     <title>Veículos Cadastrados</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="../../images/icon.ico">
-    <script>
-        function confirmarExclusao() {
-            return confirm("Tem certeza que deseja excluir este veículo?");
-        }
-    </script>
+    <script src="../confirmDelete.js"></script>
 </head>
 
 <body>
@@ -63,7 +59,7 @@ if (!$result) {
                         <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 1): ?>
                             <form action="excluir_veiculo.php" method="POST">
                                 <input type="hidden" name="id_veiculo" value="<?php echo $veiculo['id_veiculo']; ?>">
-                                <button type="submit" onclick="confirmarExclusao()">Excluir</button>
+                                <button type="submit" onclick="confirmDelete(event)">Excluir</button>
                             </form>
                         <?php endif; ?>
                     </td>
