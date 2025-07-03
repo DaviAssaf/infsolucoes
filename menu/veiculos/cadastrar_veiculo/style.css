@@ -1,0 +1,66 @@
+@import url('../../styles.css');
+
+.back-button a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.back-button button {
+    padding: 15px 30px;
+}
+
+.container {
+    width: 50%;
+    margin: 50px auto;
+    text-align: center;
+    padding: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    margin-top: 10px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 80%;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    padding: 8px 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 5px var(--accent-color);
+}
+
+button {
+    padding: 15px 50px;
+    margin-top: 20px;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--accent-hover-color);
+}
