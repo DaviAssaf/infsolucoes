@@ -32,7 +32,7 @@ if (isset($_GET['error'])) {
             <div class="login-logo">
                 <i class="fas fa-user-circle"></i>
             </div>
-            <h2>Entrar na Sua Conta</h2>
+            <h2>Entre na Sua Conta</h2>
             <form action="login.php" method="POST">
                 <div class="input-group">
                     <i class="fas fa-user"></i>
