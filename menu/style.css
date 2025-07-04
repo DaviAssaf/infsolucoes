@@ -21,7 +21,7 @@
     text-decoration: none;
     font-size: 18px;
     color: var(--primary-color);
-    display: block;
+    display: flex;
 }
 
 .sidebar a:hover {
@@ -34,6 +34,11 @@
     color: var(--primary-color);
     margin: 10px 20px;
     font-weight: bold;
+}
+
+.mp_warning {
+    margin-left: 10px;
+    color: red;
 }
 
 .main-content {

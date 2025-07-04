@@ -1,5 +1,13 @@
 <?php
+include 'conn.php';
 require_once 'verificacao_sessao.php';
+
+$query = "SELECT * FROM materia_prima WHERE quantidade < quantidade_min";
+$stmt = $conn->prepare($query);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$num_rows = $result->num_rows;
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +35,7 @@ require_once 'verificacao_sessao.php';
         <div class="section">
             <div class="section-title">Gestão de Estoque</div>
             <a href="ferramentas"><i class="fas fa-tools"></i> Ferramentas</a>
-            <a href="materia_prima"><i class="fas fa-boxes"></i> Matérias-Primas</a>
+            <a href="materia_prima"><i class="fas fa-boxes"></i> Matérias-Primas <?php if ($num_rows > 0): ?><div class="mp_warning"><i class="fa fa-exclamation-triangle"></i><?php echo htmlspecialchars($num_rows); ?></div><?php endif; ?></a>
             <a href="maleta"><i class="fas fa-briefcase"></i> Maletas</a>
         </div>
         <div class="section">
