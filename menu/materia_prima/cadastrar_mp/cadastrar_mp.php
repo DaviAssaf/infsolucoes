@@ -1,6 +1,6 @@
 <?php
-require_once '../infsolucoes/menu/verificacao_sessao.php';
-include '../infsolucoes/menu/conn.php';
+require_once '../../verificacao_sessao.php';
+include '../../conn.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = isset($_POST['nome']) ? trim(strip_tags($_POST['nome'])) : null;

@@ -17,7 +17,7 @@ if (!in_array($organizar_coluna, $validar_colunas)) {
 $organizar_coluna = $conn->real_escape_string($organizar_coluna);
 $organizar_direcao = $organizar_direcao === 'DESC' ? 'DESC' : 'ASC';
 
-$query = "SELECT id_mp, nome, custo, quantidade, medida, descricao, quantidade_min 
+$query = "SELECT id_mp, nome, custo, quantidade, last_commit, medida, descricao, quantidade_min 
           FROM materia_prima 
           WHERE nome LIKE ? 
           ORDER BY $organizar_coluna $organizar_direcao";
@@ -65,7 +65,6 @@ function mostrarAviso($estoque)
         <input type='hidden' name='sort_direction' value='<?php echo htmlspecialchars($organizar_direcao); ?>'>
         <button type='submit'>Pesquisar</button>
     </form>
-
     <table class='table-container table-style'>
         <thead>
             <tr>
@@ -75,6 +74,8 @@ function mostrarAviso($estoque)
                     'nome' => 'Nome',
                     'custo' => 'Custo',
                     'quantidade' => 'Quantidade',
+                    'Valor em Estoque',
+                    'last_commit' => 'Ultima Atualização',
                     'descricao' => 'Descrição',
                     'quantidade_min' => 'Estoque Recomendado'
                 ];
@@ -92,33 +93,43 @@ function mostrarAviso($estoque)
             </tr>
         </thead>
         <tbody>
-            <?php if ($result->num_rows > 0): ?>
-                <?php while ($row = $result->fetch_assoc()): ?>
-                    <?php
+            <?php
+            $total_estoque = 0;
+            if ($result->num_rows > 0):
+                while ($row = $result->fetch_assoc()):
                     $quantidade = $row['quantidade'] ?? 0;
+                    $custo = $row['custo'] ?? 0;
+                    $valor_estoque = floatval($custo) * floatval($quantidade);
+                    $total_estoque += $valor_estoque;
                     $quantidade_min = $row['quantidade_min'];
                     $quantidade_exibicao = (!is_null($quantidade_min) && $quantidade < $quantidade_min)
-                        ? mostrarAviso($quantidade . ' ' . $row['medida'] ?? '')
-                        : htmlspecialchars($quantidade . ' ' . $row['medida'] ?? '');
-                    ?>
-                    <tr class='table-row'>
-                        <td><?php echo htmlspecialchars($row['id_mp']); ?></td>
-                        <td><?php echo htmlspecialchars($row['nome']); ?></td>
-                        <td>R$ <?php echo number_format(floatval($row['custo'] ?? 0), 2, ',', '.'); ?></td>
-                        <td><?php echo $quantidade_exibicao; ?></td>
-                        <td><?php echo htmlspecialchars($row['descricao'] ?? ''); ?></td>
-                        <td><?php echo htmlspecialchars($row['quantidade_min'] ?? ''); ?></td>
-                        <td>
-                            <a href='editar_mp?id_mp=<?php echo $row['id_mp']; ?>' class='edit-link'>Editar</a>
-                            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 1): ?>
-                                <form action='deletar_mp.php' method='POST' style='display:inline;'>
-                                    <input type='hidden' name='id_mp' value='<?php echo $row['id_mp']; ?>'>
-                                    <button type='submit' class='delete-button' onclick="confirmDelete(event)">Excluir</button>
-                                </form>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
+                        ? mostrarAviso($quantidade . ' ' . ($row['medida'] ?? ''))
+                        : htmlspecialchars($quantidade . ' ' . ($row['medida'] ?? ''));
+            ?>
+                <tr class='table-row'>
+                    <td><?php echo htmlspecialchars($row['id_mp']); ?></td>
+                    <td><?php echo htmlspecialchars($row['nome']); ?></td>
+                    <td>R$ <?php echo number_format(floatval($custo), 2, ',', '.'); ?></td>
+                    <td><?php echo $quantidade_exibicao; ?></td>
+                    <td>R$ <?php echo number_format($valor_estoque, 2, ',', '.'); ?></td>
+                    <td><?php echo !empty($row['last_commit']) ? 'R$ ' . number_format(floatval($row['last_commit']), 2, ',', '.') : 'Sem registros'; ?></td>
+                    <td><?php echo htmlspecialchars($row['descricao'] ?? ''); ?></td>
+                    <td><?php echo htmlspecialchars($row['quantidade_min'] ?? ''); ?></td>
+                    <td>
+                        <a href='editar_mp?id_mp=<?php echo $row['id_mp']; ?>' class='edit-link'>Editar</a>
+                        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 1): ?>
+                            <form action='deletar_mp.php' method='POST' style='display:inline;'>
+                                <input type='hidden' name='id_mp' value='<?php echo $row['id_mp']; ?>'>
+                                <button type='submit' class='delete-button' onclick="confirmDelete(event)">Excluir</button>
+                            </form>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+                <tr class='table-row total-row'>
+                    <td colspan="4" style="text-align:right; font-weight:bold;">Total em Estoque:</td>
+                    <td style="font-weight:bold;">R$ <?php echo number_format($total_estoque, 2, ',', '.'); ?></td>
+                </tr>
             <?php else: ?>
                 <tr class='table-row'>
                     <td colspan='9'>Nenhuma matéria-prima cadastrada.</td>

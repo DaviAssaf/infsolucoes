@@ -1,126 +1,139 @@
 @import url(../styles.css);
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .header .logo {
-    height: 100px;
+	height: 100px;
 }
 
 .filter-selection {
-    align-items: center;
-    width: 100%;
+	align-items: center;
+	width: 100%;
 }
 
 #period-select {
-    width: 20%;
+	width: 20%;
 }
 
 #type-select {
-    width: 20%;
+	width: 20%;
 }
 
 table {
-    margin-top: 25px;
-}
-
-.actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
+	margin-top: 25px;
 }
 
 .actions a {
-    display: inline-block;
-    padding: 6px 10px;
-    border-radius: 5px;
-    font-size: 0.85em;
-    font-weight: 500;
-    color: #fff;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+	display: inline-block;
+	padding: 6px 10px;
+	border-radius: 5px;
+	font-size: 0.85em;
+	font-weight: 500;
+	color: #fff;
+	text-decoration: none;
+	transition: background-color 0.3s ease;
 }
 
 /* Cores distintas para cada ação */
 #button-view {
-    background-color: #3498db;
+	background-color: #3498db;
 }
 
 /* Azul */
 #button-print {
-    background-color: #8e44ad;
+	background-color: #8e44ad;
 }
 
 /* Roxo */
 #button-edit {
-    background-color: #f39c12;
+	background-color: #f39c12;
 }
 
 /* Laranja */
 #button-delete {
-    background-color: #e74c3c;
+	background-color: #e74c3c;
 }
 
 /* Vermelho */
 
 #button-view:hover {
-    background-color: #2980b9;
+	background-color: #2980b9;
 }
 
 #button-print:hover {
-    background-color: #71368a;
+	background-color: #71368a;
 }
 
 #button-edit:hover {
-    background-color: #d78b08;
+	background-color: #d78b08;
 }
 
 #button-delete:hover {
-    background-color: #c0392b;
+	background-color: #c0392b;
 }
 
 .filter-selection {
-    margin: 20px 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    align-items: center;
-    justify-content: center;
+	margin: 20px 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 15px;
+	align-items: center;
+	justify-content: center;
 }
 
 .selection-form select,
 .selection-form button {
-    padding: 10px 15px;
-    border-radius: 6px;
-    border: 1px solid var(--primary-color);
-    font-size: 0.95em;
+	padding: 10px 15px;
+	border-radius: 6px;
+	border: 1px solid var(--primary-color);
+	font-size: 0.95em;
 }
 
 .selection-form button {
-    background-color: var(--accent-color);
-    color: var(--secondary-color);
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.2s;
+	background-color: var(--accent-color);
+	color: var(--secondary-color);
+	border: none;
+	cursor: pointer;
+	font-weight: bold;
+	transition: background-color 0.2s;
 }
 
 .selection-form button:hover {
-    background-color: var(--accent-hover-color);
+	background-color: var(--accent-hover-color);
 }
 
 .table-style th,
 .table-style td {
-    text-align: center;
-    vertical-align: middle;
-    padding: 10px;
-    font-size: 0.95em;
+	text-align: center;
+	vertical-align: middle;
+	padding: 10px;
+	font-size: 0.95em;
 }
 
 .table-style td[data-total-gasto] {
-    font-weight: bold;
-    color: #2c3e50;
+	font-weight: bold;
+	color: #2c3e50;
+}
+
+/* Botão PDF */
+#button-print-pdf {
+	display: inline-block;
+	padding: 6px 10px;
+	border-radius: 5px;
+	font-size: 0.85em;
+	font-weight: 500;
+	color: #fff;
+	background-color: #27ae60; /* Verde */
+	text-decoration: none;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+#button-print-pdf:hover {
+	background-color: #1e8449;
 }

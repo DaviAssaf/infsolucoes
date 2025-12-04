@@ -36,6 +36,9 @@ if ($tipo === null) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imprimindo Lista...</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
     <style>
         #loader {
             position: fixed;
@@ -50,85 +53,129 @@ if ($tipo === null) {
         }
     </style>
     <script>
-        window.detailsData = <?php echo json_encode($details); ?>;
-        window.id_registro_estoque = <?php echo json_encode($id_registro); ?>;
-        window.tipo_registro = <?php echo json_encode($tipo); ?>;
+    window.detailsData = <?php echo json_encode($details); ?>;
+    window.id_registro_estoque = <?php echo json_encode($id_registro); ?>;
+    window.tipo_registro = <?php echo json_encode($tipo); ?>;
 
-        function downloadList(id_registro_estoque) {
-            if (!window.detailsData || !Array.isArray(window.detailsData) || window.detailsData.length === 0) {
-                alert('Nenhum dado disponível para exportar.');
-                return;
-            }
-            if (typeof tipo_registro !== 'number' || (tipo_registro !== 0 && tipo_registro !== 1)) {
-                alert('Tipo de registro inválido.');
-                return;
-            }
-
-            const data = [
-                ['Matéria Prima', 'Quantidade', 'Custo Unitário', 'Custo Total']
-            ];
-
-            window.detailsData.forEach(item => {
-                data.push([
-                    item.nome || '',
-                    item.quantidade || '',
-                    item.custo ? Number(item.custo).toLocaleString('pt-BR', {
-                        style: 'currency',
-                        currency: 'BRL'
-                    }) : '',
-                    item.custo_total ? Number(item.custo_total).toLocaleString('pt-BR', {
-                        style: 'currency',
-                        currency: 'BRL'
-                    }) : ''
-                ]);
-            });
-
-            const totalGasto = window.detailsData.reduce((sum, item) => sum + (parseFloat(item.custo_total) || 0), 0);
-            const totalRow = ['', '', 'Total:', totalGasto.toLocaleString('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-            })];
-            data.push(totalRow);
-
-            const worksheet = XLSX.utils.aoa_to_sheet(data);
-            worksheet['!cols'] = [{
-                wch: 50
-            }, {
-                wch: 10
-            }, {
-                wch: 15
-            }, {
-                wch: 15
-            }];
-
-            const workbook = XLSX.utils.book_new();
-            if (tipo_registro == 1) {
-                XLSX.utils.book_append_sheet(workbook, worksheet, 'Lista de Entrada');
-                XLSX.writeFile(workbook, `entrada_registro#${id_registro_estoque}.xlsx`);
-            } else {
-                XLSX.utils.book_append_sheet(workbook, worksheet, 'Lista de Saídas');
-                XLSX.writeFile(workbook, `saida_registro#${id_registro_estoque}.xlsx`);
-            }
+    function downloadExcelList(id_registro_estoque) {
+        if (!window.detailsData || !Array.isArray(window.detailsData) || window.detailsData.length === 0) {
+            alert('Nenhum dado disponível para exportar.');
+            return;
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof downloadList === 'function') {
-                document.body.innerHTML += '<div id="loader">Gerando arquivo... <span id="countdown">2</span>s</div>';
-                downloadList(window.id_registro_estoque);
-                let timeLeft = 2;
-                const countdown = setInterval(() => {
-                    timeLeft--;
-                    document.getElementById('countdown').textContent = timeLeft;
-                    if (timeLeft <= 0) {
-                        clearInterval(countdown);
-                        window.location.href = '../registro_estoque';
-                    }
-                }, 1000);
-            } else {
-                alert('Função downloadList não encontrada.');
+        const data = [
+            ['Matéria Prima', 'Quantidade', 'Custo Unitário', 'Custo Total']
+        ];
+
+        window.detailsData.forEach(item => {
+            data.push([
+                item.nome || '',
+                item.quantidade || '',
+                item.custo ? Number(item.custo).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : '',
+                item.custo_total ? Number(item.custo_total).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : ''
+            ]);
+        });
+
+        const totalGasto = window.detailsData.reduce((sum, item) => sum + (parseFloat(item.custo_total) || 0), 0);
+        const totalRow = ['', '', 'Total:', totalGasto.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })];
+        data.push(totalRow);
+
+        const worksheet = XLSX.utils.aoa_to_sheet(data);
+        worksheet['!cols'] = [
+            { wch: 50 }, { wch: 10 }, { wch: 15 }, { wch: 15 }
+        ];
+
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(
+            workbook,
+            worksheet,
+            tipo_registro == 1 ? 'Entrada' : 'Saída'
+        );
+
+        XLSX.writeFile(workbook,
+            `${tipo_registro == 1 ? 'entrada' : 'saida'}_registro#${id_registro_estoque}.xlsx`
+        );
+    }
+
+    // -----------------------
+    // 📌 NOVO: GERAR PDF
+    // -----------------------
+    function downloadPDFList(id_registro_estoque) {
+        if (!window.detailsData || !Array.isArray(window.detailsData) || window.detailsData.length === 0) {
+            alert('Nenhum dado disponível para exportar.');
+            return;
+        }
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        doc.setFontSize(16);
+        doc.text(`Registro de ${tipo_registro == 1 ? 'Entrada' : 'Saída'}`, 105, 10, { align: 'center' });
+
+        const headers = ['Matéria Prima', 'Quantidade', 'Custo Unitário', 'Custo Total'];
+
+        const body = [];
+        let total = 0;
+
+        window.detailsData.forEach(item => {
+            const custo = parseFloat(item.custo_total) || 0;
+            total += custo;
+
+            body.push([
+                item.nome || '',
+                item.quantidade || '',
+                item.custo ? `R$ ${Number(item.custo).toFixed(2)}` : '',
+                item.custo_total ? `R$ ${Number(item.custo_total).toFixed(2)}` : ''
+            ]);
+        });
+
+        // total final
+        body.push(['', '', 'TOTAL:', `R$ ${total.toFixed(2)}`]);
+
+        doc.autoTable({
+            head: [headers],
+            body: body,
+            startY: 20,
+            styles: {
+                fontSize: 10,
+            },
+            headStyles: {
+                fillColor: [22, 160, 133],
+                textColor: 255
             }
         });
-    </script>
+
+        const filename =
+            (tipo_registro == 1 ? 'entrada' : 'saida') +
+            `_registro#${id_registro_estoque}.pdf`;
+
+        doc.save(filename);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Escolher se vai baixar Excel ou PDF
+        const isPDF = new URLSearchParams(window.location.search).get("pdf") === "1";
+
+        document.body.innerHTML +=
+            '<div id="loader">Gerando arquivo... <span id="countdown">2</span>s</div>';
+
+        if (isPDF) {
+            downloadPDFList(window.id_registro_estoque);
+        } else {
+            downloadExcelList(window.id_registro_estoque);
+        }
+
+        let timeLeft = 2;
+        const countdown = setInterval(() => {
+            timeLeft--;
+            document.getElementById('countdown').textContent = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                window.location.href = '../registro_estoque';
+            }
+        }, 1000);
+    });
+</script>
 </head>
 
 <body>

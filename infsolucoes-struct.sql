@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 04/07/2025 às 12:58
--- Versão do servidor: 8.0.42
+-- Tempo de geração: 18/08/2025 às 15:47
+-- Versão do servidor: 9.1.0
 -- Versão do PHP: 8.3.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -216,6 +216,7 @@ CREATE TABLE IF NOT EXISTS `materia_prima` (
   `nome` varchar(250) NOT NULL,
   `custo` decimal(10,2) NOT NULL,
   `quantidade` float NOT NULL DEFAULT '0',
+  `last_commit` varchar(20) DEFAULT NULL,
   `medida` varchar(10) NOT NULL DEFAULT 'uni',
   `descricao` mediumtext,
   `quantidade_min` float DEFAULT NULL,
@@ -298,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `saida_estoque` (
   `quantidade` float NOT NULL DEFAULT '0',
   `custo_total` float NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_entry` (`id_registro_estoque`,`id_mp`)
+  UNIQUE KEY `unique_entry` (`id_registro_estoque`,`id_mp`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------

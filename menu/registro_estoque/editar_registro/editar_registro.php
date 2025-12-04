@@ -129,9 +129,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     throw new Exception("Estoque insuficiente para id_mp $mp_id. Disponível: $current_stock");
                 }
 
-                $update_stock_query = $tipo == 0 ? "UPDATE materia_prima SET quantidade = quantidade - ? WHERE id_mp = ?" : "UPDATE materia_prima SET quantidade = quantidade + ? WHERE id_mp = ?";
+                $update_stock_query = $tipo == 0 ? "UPDATE materia_prima SET quantidade = quantidade - ?, last_commit = ? WHERE id_mp = ?" : "UPDATE materia_prima SET quantidade = quantidade + ?, last_commit = ? WHERE id_mp = ?";
                 $stock_stmt = $conn->prepare($update_stock_query);
-                $stock_stmt->bind_param("di", abs($diferenca_quantidade), $mp_id); // Usa o valor absoluto
+                $last_commit = htmlspecialchars("-" . $novo_custo_total);
+                $stock_stmt->bind_param("dsi", abs($diferenca_quantidade), $last_commit, $mp_id); // Usa o valor absoluto
                 if (!$stock_stmt->execute()) {
                     throw new Exception("Erro ao atualizar estoque: " . $stmt->error);
                 }

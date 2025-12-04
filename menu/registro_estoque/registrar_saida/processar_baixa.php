@@ -22,18 +22,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $quantidade = $quantidades[$index];
             $custo_total = $custos_totais[$index];
             if ($quantidade > 0) {
-                $stmt->bind_param("iidi", $registro_id, $mp_id, $quantidade, $custo_total);
+                $stmt->bind_param("iidd", $registro_id, $mp_id, $quantidade, $custo_total);
                 $stmt->execute();
             }
         }
     }
 
-    $query = "UPDATE materia_prima SET quantidade = quantidade - ? WHERE id_mp = ?";
+    $query = "UPDATE materia_prima SET quantidade = quantidade - ?, last_commit = ? WHERE id_mp = ?";
     $stmt = $conn->prepare($query);
     foreach ($mp_ids as $index => $mp_id) {
         $quantidade = $quantidades[$index];
         if ($quantidade > 0) {
-            $stmt->bind_param("di", $quantidade, $mp_id);
+            $last_commit = htmlspecialchars("-" . $custos_totais[$index]);
+            $stmt->bind_param("ddi", $quantidade, $last_commit, $mp_id);
             $stmt->execute();
         }
     }

@@ -97,6 +97,11 @@ input[type="text"] {
     outline: none;
 }
 
+.total-row {
+    position: fixed;
+    bottom: 0;
+}
+
 /* Aviso de estoque baixo */
 .estoque-baixo {
     color: #DC3545 !important;

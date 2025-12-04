@@ -30,7 +30,7 @@ $selected_type = (isset($_GET['type']) && isset($types[$_GET['type']])) ? $_GET[
 $what = $types[$selected_type];
 
 try {
-    $query = "SELECT r.id, r.data_hora, r.os, r.custo_final, COALESCE(f.nome, 'Desconhecido') AS responsavel 
+    $query = "SELECT r.id, r.tipo, r.data_hora, r.os, r.custo_final, COALESCE(f.nome, 'Desconhecido') AS responsavel 
               FROM registro_estoque r
               LEFT JOIN funcionarios f ON r.id_responsavel = f.id_funcionario
               WHERE $where AND $what
@@ -109,6 +109,7 @@ try {
                 <tr>
                     <th>#</th>
                     <th>Data/Hora</th>
+                    <th>Tipo de Movimentação</th>
                     <th>OS</th>
                     <th>Custo Final</th>
                     <th>Responsável</th>
@@ -121,11 +122,13 @@ try {
                         <tr>
                             <td><?php echo htmlspecialchars($row['id']); ?></td>
                             <td><?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($row['data_hora']))); ?></td>
+                            <td><?php echo htmlspecialchars($row['tipo'] == 1 ? 'Entrada' : 'Saída'); ?></td>
                             <td><?php echo $row['os']; ?></td>
                             <td data-total-gasto="<?php echo htmlspecialchars($row['custo_final']); ?>">R$ <?php echo number_format($row['custo_final'], 2, ',', '.'); ?></td>
                             <td><?php echo htmlspecialchars($row['responsavel']); ?></td>
                             <td class="actions">
                                 <a href="detalhes?id=<?php echo urlencode(intval($row['id'])); ?>" id="button-view">Ver Detalhes</a>
+                                <a href="imprimir_lista.php?id=<?= $row['id'] ?>&pdf=1" id="button-print-pdf">PDF</a>
                                 <a href="imprimir_lista.php?id=<?php echo urlencode(intval($row['id'])); ?>" id="button-print">Imprimir</a>
                                 <a href="editar_registro?id=<?php echo urlencode(intval($row['id'])); ?>" id="button-edit">Editar</a>
                                 <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 1): ?>
