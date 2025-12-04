@@ -1,0 +1,135 @@
+@import url('../../styles.css');
+
+.back-button button {
+    padding: 15px 30px;
+}
+
+.container {
+    width: 80%;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 30px;
+}
+
+h2, h3 {
+    color: var(--primary-color);
+}
+
+.section {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background-color: #fafafa;
+}
+
+table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+table thead tr {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table td input[type="checkbox"] {
+    transform: scale(1.2);
+    cursor: pointer;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.image-gallery img {
+    max-width: 300px;
+    max-height: 300px;
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease;
+}
+
+.image-gallery img:hover {
+    transform: scale(1.05);
+}
+
+.image-button {
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+input[type="file"] {
+    display: block;
+    margin-top: 10px;
+    color: var(--primary-color);
+}
+
+.section .button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+button[type="submit"] {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 15px 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+/* Responsividade para tabela */
+@media (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    thead tr {
+        display: none;
+    }
+    tbody tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: var(--border-radius);
+    }
+    tbody td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+    tbody td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: 45%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+}

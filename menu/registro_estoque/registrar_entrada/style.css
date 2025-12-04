@@ -1,0 +1,85 @@
+@import url('../../styles.css');
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.form-container {
+    justify-content: center;
+    color: var(--primary-color);
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    border: 1px solid #1a2b44;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    background-color: white;
+    padding: 2%;
+    margin: 0 auto;
+}
+
+.form-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 100px;
+    border-bottom: black solid 2px;
+}
+
+.input-group {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    margin-right: 5%;
+}
+
+.input-group select {
+    margin-top: 10px;
+}
+
+button {
+    margin-top: 20px;
+}
+
+.form-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-body table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+    background: var(--secondary-color);
+    box-shadow: var(--shadow);
+    padding: 0;
+}
+
+.form-body th,
+.form-body td {
+    padding: 8px 12px;
+    text-align: left;
+    height: auto;
+}
+
+.form-body th {
+    background: #00b6f0;
+    color: #fff;
+}
+
+.input-table {
+    display: flex;
+    align-items: center;
+}
+
+.input-table input {
+    width: 80%;
+    height: 30px;
+    margin: 10px;
+    box-sizing: border-box;
+}

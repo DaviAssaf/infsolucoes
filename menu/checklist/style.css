@@ -1,0 +1,76 @@
+@import url('../styles.css');
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    flex-grow: 1;
+    text-align: center;
+    margin: 0;
+    font-size: 1.8em;
+    color: var(--secondary-color);
+}
+
+.header .logo {
+    height: 100px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section h3 {
+    color: var(--primary-color);
+}
+
+.actions a {
+    display: inline-block;
+    margin: 3px;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.actions a:nth-child(1) {
+    background-color: #27ae60;
+}
+
+/* Retornar */
+.actions a:nth-child(2) {
+    background-color: #f39c12;
+}
+
+/* Editar */
+.actions a:nth-child(3) {
+    background-color: #3498db;
+}
+
+/* Imprimir */
+
+.actions a:hover:nth-child(1) {
+    background-color: #219150;
+}
+
+.actions a:hover:nth-child(2) {
+    background-color: #d98c0c;
+}
+
+.actions a:hover:nth-child(3) {
+    background-color: #2e80bd;
+}
+
+.table-style th {
+    white-space: nowrap;
+}
+
+.table-style td {
+    vertical-align: middle;
+}

@@ -1,0 +1,92 @@
+@import url('../menu/styles.css');
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    margin-top: 20px;
+}
+
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    background-color: var(--secondary-color);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    width: 350px;
+}
+
+.login-logo i {
+    font-size: 60px;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.input-group i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+}
+
+.input-group i.fa-user,
+.input-group i.fa-lock {
+    left: 10px;
+}
+
+.input-group i#togglePassword {
+    right: 10px;
+    cursor: pointer;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 10px 10px 35px;
+    box-sizing: border-box;
+}
+
+.options {
+    margin-bottom: 20px;
+}
+
+.forgot-password {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.login-btn {
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.login-btn:hover {
+    background-color: var(--accent-hover-color);
+}

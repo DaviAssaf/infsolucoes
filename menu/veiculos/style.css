@@ -1,0 +1,102 @@
+@import url('../styles.css');
+
+.back-button {
+    text-align: left;
+    margin: 20px 0;
+}
+
+.back-button button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s ease;
+}
+
+.back-button button:hover {
+    background-color: var(--accent-hover-color);
+}
+
+.cadastro-button {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.cadastro-button a button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    background-color: var(--accent-color);
+    color: white;
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s ease;
+}
+
+.cadastro-button a button:hover {
+    background-color: var(--accent-hover-color);
+}
+
+table {
+    width: 90%; /* Sobrescreve 100% se necessário */
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    font-size: 0.95rem;
+}
+
+table thead tr {
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+}
+
+table th, table td {
+    padding: 12px 15px;
+    border: 1px solid var(--primary-color);
+    text-align: center;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: var(--neutral-color);
+}
+
+button {
+    margin: 5px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Botão vermelho para o formulário de exclusão */
+form button {
+    background-color: #e74c3c;
+    color: white;
+}
+
+form button:hover {
+    background-color: #c0392b;
+}
+
+td.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Para botões dentro do td.actions que não sejam do form */
+td.actions > a button {
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    width: 100%;
+}
+
+td.actions > a button:hover {
+    background-color: var(--accent-hover-color);
+}

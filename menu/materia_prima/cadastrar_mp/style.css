@@ -1,0 +1,87 @@
+@import url('../../styles.css');
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Símbolo de moeda no campo de custo */
+.currency-symbol {
+    background-color: var(--neutral-color);
+    padding: 0 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px 0 0 5px;
+    border-right: solid 1px;
+    height: 38px;
+    position: relative;
+    bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+/* Campo de custo arredondado à direita */
+.input-container input[type="number"] {
+    border-radius: 0 5px 5px 0;
+    padding-left: 5px;
+    margin-top: 0;
+    width: 100%;
+    border-left: none;
+    height: 38px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+/* Formulário centralizado e simétrico */
+form {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 30px 25px 20px 25px;
+    border-radius: var(--container-radius);
+    box-shadow: var(--shadow);
+    margin: 40px auto 0 auto;
+    width: 90%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+}
+
+/* Espaçamento entre labels e campos */
+form label {
+    font-weight: 600;
+}
+
+/* Ajuste para campos do formulário */
+form input[type="text"],
+form input[type="number"],
+form select {
+    margin-bottom: 10px;
+    padding-left: 5px;
+    width: 100%;
+    min-height: 38px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+/* Botão de submit destacado */
+form input[type="submit"] {
+    margin-top: 10px;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    padding: 12px 0;
+    border-radius: var(--border-radius);
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form input[type="submit"]:hover {
+    background-color: var(--accent-hover-color);
+}

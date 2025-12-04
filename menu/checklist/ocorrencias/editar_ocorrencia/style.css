@@ -1,0 +1,27 @@
+@import url('../../../styles.css');
+
+.container-box {
+    width: 90%;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section h2 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+textarea {
+    height: 100px;
+}
