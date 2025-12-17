@@ -129,7 +129,7 @@ try {
                             <td class="actions">
                                 <a href="detalhes?id=<?php echo urlencode(intval($row['id'])); ?>" id="button-view">Ver Detalhes</a>
                                 <a href="imprimir_lista.php?id=<?= $row['id'] ?>&pdf=1" id="button-print-pdf">PDF</a>
-                                <a href="imprimir_lista.php?id=<?php echo urlencode(intval($row['id'])); ?>" id="button-print">Imprimir</a>
+                                <a href="imprimir_lista.php?id=<?php echo urlencode(intval($row['id'])); ?>" id="button-print">Excel</a>
                                 <a href="editar_registro?id=<?php echo urlencode(intval($row['id'])); ?>" id="button-edit">Editar</a>
                                 <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 1): ?>
                                     <a href="excluir_registro.php?id=<?php echo urlencode(intval($row['id'])); ?>" id="button-delete" onclick="return confirm('Tem certeza que deseja excluir este registro?')">Excluir</a>

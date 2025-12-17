@@ -223,7 +223,7 @@ while ($row = $result_ferramentas_maleta->fetch_assoc()) {
             <div class="section info-colab">
                 <p><strong>Responsável:</strong> <?php echo htmlspecialchars($checklist['nome_responsavel'] ?? 'Não informado'); ?></p>
                 <p><strong>Destino:</strong> <?php echo htmlspecialchars($destino); ?></p>
-                <p><strong>Saída:</strong> 
+                <p><strong>Saída:</strong>
                     <?php echo $checklist['saida'] ? date('d/m/Y H:i', strtotime($checklist['saida'])) : 'Não informado'; ?>
                 </p>
                 <p><strong>Retorno:</strong>
@@ -233,16 +233,16 @@ while ($row = $result_ferramentas_maleta->fetch_assoc()) {
 
             <!-- VEÍCULO -->
             <?php if ($checklist['veiculo'] != null): ?>
-            <div class="section vehicle-section">
-                <h3>Veículo</h3>
-                <div class="vehicle-details">
-                    <p><strong>Nome:</strong> <?php echo htmlspecialchars($checklist['nome_veiculo']); ?></p>
-                    <p><strong>Placa:</strong> <?php echo htmlspecialchars($checklist['placa']); ?></p>
-                    <p><strong>Motorista:</strong> <?php echo htmlspecialchars($checklist['nome_motorista']); ?></p>
-                    <p><strong>KM de Saída:</strong> <?php echo htmlspecialchars($checklist['km_saida'] ?: '0'); ?></p>
-                    <p><strong>KM de Retorno:</strong> ____________________</p>
+                <div class="section vehicle-section">
+                    <h3>Veículo</h3>
+                    <div class="vehicle-details">
+                        <p><strong>Nome:</strong> <?php echo htmlspecialchars($checklist['nome_veiculo']); ?></p>
+                        <p><strong>Placa:</strong> <?php echo htmlspecialchars($checklist['placa']); ?></p>
+                        <p><strong>Motorista:</strong> <?php echo htmlspecialchars($checklist['nome_motorista']); ?></p>
+                        <p><strong>KM de Saída:</strong> <?php echo htmlspecialchars($checklist['km_saida'] ?: '0'); ?></p>
+                        <p><strong>KM de Retorno:</strong> ____________________</p>
+                    </div>
                 </div>
-            </div>
             <?php endif; ?>
 
             <!-- FERRAMENTAS -->
@@ -255,63 +255,37 @@ while ($row = $result_ferramentas_maleta->fetch_assoc()) {
                         <tr>
                             <th>ITEM</th>
                             <th>SAÍDA</th>
-                            <th>RETORNO (SOMENTE EXTRAVIO)</th>
-                            <th>RETORNADO</th>
+                            <th>RETORNO (EXTRAVIO)</th>
+                            <th>OK</th>
                         </tr>
                     </thead>
                     <tbody>
-
-                    <?php while ($item = $result_itens->fetch_assoc()): ?>
-                        <tr>
+                        <?php while ($item = $result_itens->fetch_assoc()): ?>
                             <?php if ($item['id_maleta']): ?>
-                                <tr class="maleta-row">
-                                    <td class="initial maleta"><?php echo htmlspecialchars($item['nome_maleta']); ?></td>
-                                    <td class="maleta"></td>
-                                    <td class="maleta"></td>
-                                    <td class="final maleta"></td>
+                                <tr class="maleta-row-header">
+                                    <td colspan="4"><strong>MALETA: <?php echo htmlspecialchars($item['nome_maleta']); ?></strong></td>
                                 </tr>
 
-
-                            <!-- MINI TABELA DA MALETA -->
-                            <?php if (isset($ferramentas_por_maleta[$item['id_maleta']])): ?>
-                            <tr>
-                                <td colspan="4" class="mini-table">
-                                    <div class="mini-table-wrapper">
-                                        <table class="mini-table-content">
-                                            <thead>
-                                                <tr>
-                                                    <th>FERRAMENTAS DA MALETA</th>
-                                                    <th>Saída</th>
-                                                    <th>Retorno</th>
-                                                    <th>OK</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach ($ferramentas_por_maleta[$item['id_maleta']] as $ferramenta): ?>
-                                                    <tr>
-                                                        <td><?php echo htmlspecialchars($ferramenta['nome_ferramenta']); ?></td>
-                                                        <td><?php echo htmlspecialchars($ferramenta['quantidade_levada'] ?: 0); ?></td>
-                                                        <td></td>
-                                                        <td><input type="checkbox"></td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php endif; ?>
+                                <?php if (isset($ferramentas_por_maleta[$item['id_maleta']])): ?>
+                                    <?php foreach ($ferramentas_por_maleta[$item['id_maleta']] as $ferramenta): ?>
+                                        <tr class="maleta-item-row">
+                                            <td class="indent-item"><?php echo htmlspecialchars($ferramenta['nome_ferramenta']); ?></td>
+                                            <td><?php echo htmlspecialchars($ferramenta['quantidade_levada'] ?: 0); ?></td>
+                                            <td></td>
+                                            <td><input type="checkbox"></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
 
                             <?php else: ?>
-                            <!-- FERRAMENTA SOLTA -->
-                                <td><?php echo htmlspecialchars($item['nome_ferramenta']); ?></td>
-                                <td><?php echo htmlspecialchars($item['quantidade_levada'] ?: 0); ?></td>
-                                <td></td>
-                                <td><input type="checkbox"></td>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($item['nome_ferramenta']); ?></td>
+                                    <td><?php echo htmlspecialchars($item['quantidade_levada'] ?: 0); ?></td>
+                                    <td></td>
+                                    <td><input type="checkbox"></td>
+                                </tr>
                             <?php endif; ?>
-                        </tr>
-                    <?php endwhile; ?>
-
+                        <?php endwhile; ?>
                     </tbody>
                 </table>
             </div>

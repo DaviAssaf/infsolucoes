@@ -1,13 +1,13 @@
 @import url(../../styles.css);
 
-/* --- FIX: permitir html2pdf renderizar conteúdo oculto --- */
+/* --- UTILIDADES --- */
 .hidden {
 	opacity: 0;
 	position: absolute;
 	left: -9999px;
 }
 
-/* --- Container geral --- */
+/* --- CONTAINER PRINCIPAL --- */
 .container-print {
 	background-color: var(--secondary-color);
 	color: var(--primary-color);
@@ -18,7 +18,7 @@
 	margin: 0 auto;
 }
 
-/* --- Header --- */
+/* --- HEADER --- */
 .header {
 	display: flex;
 	align-items: center;
@@ -36,7 +36,7 @@
 	font-size: 1rem;
 }
 
-/* --- Sections --- */
+/* --- SEÇÕES --- */
 .section {
 	margin-bottom: 0;
 	border-bottom: 1px solid;
@@ -47,7 +47,7 @@
 	font-size: 1rem;
 }
 
-/* --- Informações --- */
+/* --- INFORMAÇÕES --- */
 .info,
 .info-colab,
 .vehicle-details {
@@ -60,7 +60,7 @@
 	margin-top: 25px;
 }
 
-/* --- Tabela principal --- */
+/* --- TABELAS PRINCIPAIS --- */
 .table-style-print,
 table {
 	width: 100%;
@@ -68,9 +68,10 @@ table {
 	background-color: var(--secondary-color);
 	color: var(--primary-color);
 	text-align: center;
+	page-break-inside: auto !important;
+	break-inside: auto !important;
 }
 
-/* Cabeçalhos */
 .table-style-print th,
 table th {
 	background-color: var(--accent-color);
@@ -82,25 +83,35 @@ table th {
 	border: 1px solid var(--primary-color);
 }
 
-/* Células */
-.table-style-print td {
+.table-style-print td,
+table td {
 	font-size: 0.9em;
 	padding: 4px 6px;
-}
-
-/* Bordas — exceto maleta */
-table td:not(.maleta, .mini-table),
-.table-style-print td:not(.maleta, .mini-table) {
 	border: 1px solid var(--primary-color);
+	white-space: nowrap !important;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	vertical-align: middle;
+	height: auto !important;
+	max-height: none !important;
 }
 
-/* Linhas pares */
+.table-style-print td:first-child {
+	width: 50%;
+	text-align: left;
+	white-space: normal !important;
+	word-break: keep-all;
+}
+
+.table-style-print td:not(:first-child) {
+	width: 13%;
+}
+
 .table-style-print tr:nth-child(even),
 table tr:nth-child(even) {
 	background-color: var(--neutral-color);
 }
 
-/* Primeira e última coluna */
 .initial {
 	border-left: 1px solid var(--primary-color);
 }
@@ -109,28 +120,54 @@ table tr:nth-child(even) {
 	border-right: 1px solid var(--primary-color);
 }
 
-/* --- Mini tabelas (tabela interna das maletas) --- */
+/* --- MINI-TABELAS --- */
+.mini-table {
+	background-color: var(--neutral-color);
+	padding: 6px !important;
+	border-left: 4px solid var(--accent-color);
+	border-right: 4px solid var(--accent-color);
+	page-break-inside: avoid !important;
+	break-inside: avoid !important;
+}
+
 .mini-table-content {
 	width: 100%;
 	margin: 0;
+	background-color: #f4f4f4;
 }
 
 .mini-table-content table {
 	width: 100%;
 	border-collapse: collapse;
+	background-color: #f4f4f4;
 }
 
-.mini-table-content th,
-.mini-table-content td {
+.mini-table-content th {
+	background-color: rgba(0, 0, 0, 0.08);
+	font-weight: bold;
 	border: 1px solid var(--primary-color);
 	padding: 4px;
 	font-size: 0.85em;
 }
 
-/* --- Assinaturas --- */
+.mini-table-content td {
+	background-color: rgba(255, 255, 255, 0.9);
+	border: 1px solid var(--primary-color);
+	padding: 4px;
+	font-size: 0.85em;
+}
+
+.mini-table-content tr:nth-child(even) td {
+	background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* --- ASSINATURAS --- */
 .sign {
 	display: flex;
-	text-align: center;
+	width: 100%;
+	margin-top: 30px;
+	page-break-inside: avoid !important;
+	break-inside: avoid !important;
 }
 
 .sign-saida,
@@ -143,55 +180,61 @@ table tr:nth-child(even) {
 	border-right: 1px solid;
 }
 
-/* ========================================================= */
-/*  🔥  REGRAS DE MANEIRA QUE NADA SEJA CORTADO NO PDF      */
-/* ========================================================= */
-
-/* Impedir corte dentro de linhas ou células */
-table,
-thead,
-tbody,
-tr,
-td,
-th {
+/* --- MALETAS --- */
+.maleta-row,
+.maleta-item-row,
+.item-linha {
 	page-break-inside: avoid !important;
 	break-inside: avoid !important;
 }
 
-/* Manter cabeçalho no topo da página */
+.maleta-row td {
+	border-top: 2px solid var(--primary-color);
+	border-bottom: 2px solid var(--primary-color);
+}
+
+.maleta-row-header td {
+	background-color: var(--primary-color) !important;
+	color: #ffffff !important;
+	font-weight: 800;
+	text-transform: uppercase;
+	padding: 10px !important;
+	border-bottom: 2px solid #000 !important;
+}
+
+.maleta-item-row {
+	background-color: #d1dbe5 !important;
+}
+
+.maleta-item-row:nth-child(even) {
+	background-color: #bdcad9 !important;
+}
+
+.indent-item {
+	padding-left: 35px !important;
+	font-weight: 600;
+	color: #1a1a1a;
+}
+
+/* --- PAGINAÇÃO --- */
+tr {
+	page-break-inside: avoid !important;
+	break-inside: avoid !important;
+	page-break-after: auto !important;
+	break-after: auto !important;
+}
+
+.ferramentas h3,
+.maleta-title,
+.mini-table-content thead {
+	page-break-after: avoid !important;
+	break-after: avoid !important;
+}
+
 thead {
 	display: table-header-group !important;
 }
 
-/* Manter rodapé no fim (se existir) */
 tfoot {
 	display: table-footer-group !important;
-}
-
-/* Mini tabelas também protegidas */
-.mini-table-content,
-.mini-table-content table,
-.mini-table-content tr,
-.mini-table-content td,
-.mini-table-content th {
-	page-break-inside: avoid !important;
-	break-inside: avoid !important;
-}
-
-/* Remover qualquer altura fixa */
-.table-style-print td {
-	height: auto !important;
-	max-height: none !important;
-}
-
-/* Linha destacada que representa uma maleta */
-tr.maleta-row {
-	background-color: var(--accent-color) !important; /* cor suave */
-	font-weight: bold;
-}
-
-/* Deixar a célula do nome da maleta mais forte */
-td.maleta {
-	background-color: rgba(0, 0, 0, 0.1) !important;
-	font-weight: bold;
 }
