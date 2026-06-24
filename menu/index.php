@@ -35,11 +35,7 @@ $num_rows = $result->num_rows;
         <div class="section">
             <div class="section-title">Gestão de Estoque</div>
             <a href="ferramentas"><i class="fas fa-tools"></i> Ferramentas</a>
-            <a href="materia_prima"><i class="fas fa-boxes"></i> Matérias-Primas
-                <?php if ($num_rows > 0): ?>
-                    <div class="mp_warning"><i class="fa fa-exclamation-triangle"></i><?php echo htmlspecialchars($num_rows); ?></div>
-                <?php endif; ?>
-            </a>
+            <a href="materia_prima"><i class="fas fa-boxes"></i> Matérias-Primas <?php if ($num_rows > 0): ?><div class="mp_warning"><i class="fa fa-exclamation-triangle"></i><?php echo htmlspecialchars($num_rows); ?></div><?php endif; ?></a>
             <a href="maleta"><i class="fas fa-briefcase"></i> Maletas</a>
         </div>
         <div class="section">
@@ -52,22 +48,16 @@ $num_rows = $result->num_rows;
             <a href="ajuda"><i class="fas fa-book"></i> Manual de Uso</a>
         </div>
     </div>
-
     <div class="main-content">
         <h1>Bem-vindo(a) <?php echo htmlspecialchars($_SESSION['user_name']); ?></h1>
         <p>Selecione uma opção no menu à esquerda para começar</p>
-        <div class="logo-wrapper">
-            <img src="../images/logo_infinity_menu_cortada.png" alt="logo_infinity" class="logo">
-        </div>
 
-        <div class="backup-container">
-            <a href="backup/exportar_sql.php" class="backup-btn download">
-                <i class="fas fa-download"></i> Baixar Backup
-            </a>
+        <div class="logo-container">
+            <background>
+                <img src="../images/logo_infinity_menu_cortada.png" alt="logo_infinity" class="logo">
+            </background>
         </div>
     </div>
-
-
 </body>
 
 </html>

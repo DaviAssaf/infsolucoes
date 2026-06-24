@@ -7,23 +7,11 @@ if (!$id_registro) {
     die('ID do registro inválido.');
 }
 
-$query = "SELECT 
-    s.id,
-    s.id_mp,
-    s.quantidade,
-    s.custo_total,
-    mp.nome,
-    mp.medida,
-    mp.custo,
-    r.custo_final,
-    r.tipo,
-    r.data_hora,
-    r.os
-FROM saida_estoque s
-LEFT JOIN materia_prima mp ON s.id_mp = mp.id_mp
-LEFT JOIN registro_estoque r ON s.id_registro_estoque = r.id
-WHERE s.id_registro_estoque = ?";
-
+$query = "SELECT s.id, s.id_mp, s.quantidade, s.custo_total, mp.nome, mp.medida, mp.custo, r.custo_final, r.tipo
+          FROM saida_estoque s
+          LEFT JOIN materia_prima mp ON s.id_mp = mp.id_mp
+          LEFT JOIN registro_estoque r ON s.id_registro_estoque = r.id
+          WHERE s.id_registro_estoque = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $id_registro);
 $stmt->execute();
@@ -33,17 +21,6 @@ $details = [];
 while ($row = $result->fetch_assoc()) {
     $details[] = $row;
 }
-
-$registroInfo = $details[0] ?? null;
-
-if (!$registroInfo) {
-    die('Registro não encontrado.');
-}
-
-$tipo = $registroInfo['tipo'];
-$data_hora = $registroInfo['data_hora'];
-$os = $registroInfo['os'];
-
 
 $tipo = $details[0]['tipo'] ?? null;
 if ($tipo === null) {
@@ -78,14 +55,7 @@ if ($tipo === null) {
     <script>
     window.detailsData = <?php echo json_encode($details); ?>;
     window.id_registro_estoque = <?php echo json_encode($id_registro); ?>;
-
-    window.detailsData = <?php echo json_encode($details); ?>;
-    window.id_registro_estoque = <?php echo json_encode($id_registro); ?>;
-
     window.tipo_registro = <?php echo json_encode($tipo); ?>;
-    window.horario_registro = <?php echo json_encode(date('d/m/Y H:i', strtotime($data_hora))); ?>;
-    window.os_registro = <?php echo json_encode($os); ?>;
-
 
     function downloadExcelList(id_registro_estoque) {
         if (!window.detailsData || !Array.isArray(window.detailsData) || window.detailsData.length === 0) {
@@ -131,78 +101,56 @@ if ($tipo === null) {
     // 📌 NOVO: GERAR PDF
     // -----------------------
     function downloadPDFList(id_registro_estoque) {
-    if (!window.detailsData || window.detailsData.length === 0) {
-        alert('Nenhum dado disponível para exportar.');
-        return;
-    }
-
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    let y = 10;
-
-    // 🔹 TÍTULO
-    doc.setFontSize(16);
-    doc.text(
-        `Registro de ${tipo_registro == 1 ? 'Entrada' : 'Saída'}`,
-        105,
-        y,
-        { align: 'center' }
-    );
-
-    y += 10;
-
-    // 🔹 CABEÇALHO (INFO DO REGISTRO)
-    doc.setFontSize(11);
-
-    doc.text(`Tipo: ${tipo_registro == 1 ? 'Entrada' : 'Saída'}`, 14, y);
-    y += 6;
-
-    doc.text(`Horário de Registro: ${window.horario_registro ?? '-'}`, 14, y);
-    y += 6;
-
-    doc.text(`OS: ${window.os_registro ?? '-'}`, 14, y);
-    y += 8;
-
-    // 🔹 LINHA SEPARADORA
-    doc.line(14, y, 196, y);
-    y += 5;
-
-    // 🔹 TABELA
-    const headers = ['Matéria Prima', 'Quantidade', 'Custo Unitário', 'Custo Total'];
-    const body = [];
-    let total = 0;
-
-    window.detailsData.forEach(item => {
-        const custo = parseFloat(item.custo_total) || 0;
-        total += custo;
-
-        body.push([
-            item.nome || '',
-            item.quantidade || '',
-            item.custo ? `R$ ${Number(item.custo).toFixed(2)}` : '',
-            item.custo_total ? `R$ ${Number(item.custo_total).toFixed(2)}` : ''
-        ]);
-    });
-
-    body.push(['', '', 'TOTAL:', `R$ ${total.toFixed(2)}`]);
-
-    doc.autoTable({
-        head: [headers],
-        body: body,
-        startY: y,
-        styles: { fontSize: 10 },
-        headStyles: {
-            fillColor: [22, 160, 133],
-            textColor: 255
+        if (!window.detailsData || !Array.isArray(window.detailsData) || window.detailsData.length === 0) {
+            alert('Nenhum dado disponível para exportar.');
+            return;
         }
-    });
 
-    doc.save(
-        `${tipo_registro == 1 ? 'entrada' : 'saida'}_registro#${id_registro_estoque}.pdf`
-    );
-}
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
+        doc.setFontSize(16);
+        doc.text(`Registro de ${tipo_registro == 1 ? 'Entrada' : 'Saída'}`, 105, 10, { align: 'center' });
+
+        const headers = ['Matéria Prima', 'Quantidade', 'Custo Unitário', 'Custo Total'];
+
+        const body = [];
+        let total = 0;
+
+        window.detailsData.forEach(item => {
+            const custo = parseFloat(item.custo_total) || 0;
+            total += custo;
+
+            body.push([
+                item.nome || '',
+                item.quantidade || '',
+                item.custo ? `R$ ${Number(item.custo).toFixed(2)}` : '',
+                item.custo_total ? `R$ ${Number(item.custo_total).toFixed(2)}` : ''
+            ]);
+        });
+
+        // total final
+        body.push(['', '', 'TOTAL:', `R$ ${total.toFixed(2)}`]);
+
+        doc.autoTable({
+            head: [headers],
+            body: body,
+            startY: 20,
+            styles: {
+                fontSize: 10,
+            },
+            headStyles: {
+                fillColor: [22, 160, 133],
+                textColor: 255
+            }
+        });
+
+        const filename =
+            (tipo_registro == 1 ? 'entrada' : 'saida') +
+            `_registro#${id_registro_estoque}.pdf`;
+
+        doc.save(filename);
+    }
 
     document.addEventListener('DOMContentLoaded', function() {
         // Escolher se vai baixar Excel ou PDF
